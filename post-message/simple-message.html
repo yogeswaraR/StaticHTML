@@ -34,6 +34,9 @@
         /* istanbul ignore else */
         if (instance) {
             instance.postMessage(JSON.stringify(_message))
+            alert('Message sent')
+        }else{
+            alert('native message instance not available')
         }
     }
 </script>

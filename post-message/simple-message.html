@@ -1,0 +1,38 @@
+<h1>Test postmessage</h1>
+<button onclick="sendMessageToNative('sample message')">Send simple message</button>
+<button onclick="sendMessageToNative(jsonMessage)">Send json url message</button>
+<script>
+    window.jsonMessage = {"url": "https://google.com/"}
+    sendMessageToNative = _message => {
+        let instance = null
+
+        //React Native WebView
+        if (window.ReactNativeWebView) {
+            instance = window.ReactNativeWebView
+        }
+
+        //Flutter WebView
+        if (window.YFlutterWebView) {
+            instance = window.YFlutterWebView
+        }
+
+        //android WebView
+        if (window.YWebViewHandler) {
+            instance = window.YWebViewHandler
+        }
+
+        //iOS WebView
+        if (
+            window.webkit &&
+            window.webkit.messageHandlers &&
+            window.webkit.messageHandlers.YWebViewHandler
+        ) {
+            instance = window.webkit.messageHandlers.YWebViewHandler
+        }
+
+        /* istanbul ignore else */
+        if (instance) {
+            instance.postMessage(JSON.stringify(_message))
+        }
+    }
+</script>

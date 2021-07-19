@@ -1,0 +1,18 @@
+<h1>Test postmessage</h1>
+<button onclick="myFunction()">Send message</button>
+<script>
+    function myFunction() {
+        var instance =undefined;
+        if (
+            window.webkit &&
+            window.webkit.messageHandlers &&
+            window.webkit.messageHandlers.YWebViewHandler
+        ) {
+            instance = window.webkit.messageHandlers.YWebViewHandler
+        }
+
+        if (instance) {
+            instance.postMessage('Test message')
+        }
+    }
+</script>
